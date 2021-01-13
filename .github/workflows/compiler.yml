@@ -24,7 +24,7 @@ env:
   TOOLCHAIN: https://github.com/mscalindt/aarch64-linux-android-4.9.git
   ARCH: arm64
   SUBARCH: arm64
-  FOLDERNAME: https://github.com/ManOfDiamond/kernel-automation.git
+  FOLDERNAME: kernel-automation
 jobs:
   build:
     runs-on: ubuntu-latest
