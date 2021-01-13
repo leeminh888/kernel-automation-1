@@ -16,14 +16,15 @@ on:
     
 
 env:
-  KERNEL_SOURCE: https://github.com/shivamjadon/Drona_Kernel_Rosy.git
-  BRANCH: q-caf
-  DEFCONFIG: drona-rosy_defconfig
+  KERNEL_SOURCE: https://github.com/lostark13/kernel_xiaomi_cannon.git
+  BRANCH: cannon
+  DEFCONFIG: msm8953-perf_defconfig
   TZ: Asia/Kolkata
-  MIR: bit
+  MIR: wet
   TOOLCHAIN: https://github.com/mscalindt/aarch64-linux-android-4.9.git
   ARCH: arm64
   SUBARCH: arm64
+  FOLDERNAME: https://github.com/ManOfDiamond/kernel-automation.git
 jobs:
   build:
     runs-on: ubuntu-latest
