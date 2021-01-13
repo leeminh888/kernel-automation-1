@@ -17,7 +17,7 @@ on:
 
 env:
   KERNEL_SOURCE: https://github.com/ManOfDiamond/kernel_xiaomi_ysl.git
-  BRANCH: cannon
+  BRANCH: stx
   DEFCONFIG: ysl_perf-defconfig
   TZ: Asia/Kolkata
   MIR: wet
