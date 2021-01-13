@@ -21,7 +21,7 @@ env:
   DEFCONFIG: ysl_perf-defconfig
   TZ: Asia/Kolkata
   MIR: wet
-  TOOLCHAIN: https://github.com/Hatsune71/toolchain-4.9.git
+  TOOLCHAIN: https://github.com/mscalindt/aarch64-linux-android-4.9.git
   ARCH: arm64
   SUBARCH: arm64
   FOLDERNAME: kernel-automation
