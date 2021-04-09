@@ -16,12 +16,13 @@ on:
     
 
 env:
-  KERNEL_SOURCE: https://github.com/ManOfDiamond/kernel_xiaomi_ysl.git
-  BRANCH: stx
-  DEFCONFIG: ysl-perf_defconfig
+  KERNEL_SOURCE: https://github.com/AndroidBlobs/kernel_xiaomi_vayu
+  BRANCH: release-LA.UM.9.1.r1-07000-SMxxx0.0
+  DEFCONFIG: vayu_user_defconfig
   TZ: Asia/Kolkata
   MIR: wet
-  TOOLCHAIN: https://github.com/mscalindt/aarch64-linux-android-4.9.git
+  TOOLCHAIN: https://github.com/mvaisakh/gcc-arm
+  TOOLCHAIN2: https://github.com/mvaisakh/gcc-arm64
   ARCH: arm64
   SUBARCH: arm64
   FOLDERNAME: kernel-automation
@@ -44,7 +45,8 @@ jobs:
        - name: Initializing environment
          run: |
             sudo -E apt-get -qq update
-            sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc clang libssl-dev repo rsync flex bison ccache
+            sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc libssl-dev  rsync flex bison ccache 
+            mkdir ~/bin && PATH=~/bin:$PATH && curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo
        - name: Cloning repo
          run: |
             git clone --recurse-submodules $KERNEL_SOURCE --depth=1 --branch=$BRANCH work
@@ -52,13 +54,15 @@ jobs:
          run: |
             cd work
             git clone $TOOLCHAIN --depth=1
-            CROSS_COMPILE+="aarch64-linux-android-4.9/bin/aarch64-linux-android-"
+            git clone $TOOLCHAIN2 --depth=1 
+            CROSS_COMPILE="pwd/gcc-arm64/bin/aarch64-elf-"
+            CROSS_COMPILE_ARM32="pwd/gcc-arm/bin/arm-linux-gnueabi"
             export CROSS_COMPILE
             export ARCH=$ARCH
             export SUBARCH=$SUBARCH
-            make clean
-            make $DEFCONFIG
-            make -j8
+            mkdir out
+            make O=out $DEFCONFIG
+            make O=out -j8
        - name: Uploading process
          run: |
             cd work/arch/arm64/boot
