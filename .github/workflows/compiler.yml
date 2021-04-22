@@ -51,10 +51,10 @@ jobs:
             git clone --recurse-submodules $KERNEL_SOURCE --depth=1 --branch=$BRANCH work
        - name: Compiling Kernel
          run: |
-            cd /home/runner/work/kernel-automation-1/kernel-automation-1/kernel_xiaomi_vayu
+            cd work/kernel_xiaomi_vayu
             chmod +x build.sh && ./build.sh
        - name: Uploading process
          run: |
-            cd /home/runner/work/kernel-automation-1/kernel-automation-1/kernel_xiaomi_vayu/AnyKernel3
+            cd work/kernel_xiaomi_vayu/AnyKernel3
             curl -sL https://git.io/file-transfer | sh
             ./transfer *.zip
