@@ -46,13 +46,7 @@ jobs:
          run: |
             sudo -E apt-get -qq update
             sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc libssl-dev  rsync flex bison ccache 
-       - name: Cloning repo
-         run: |
-            git clone --recurse-submodules $KERNEL_SOURCE --depth=1 --branch=$BRANCH work
-       - name: Compiling Kernel
-         run: |
-            cd work/kernel_xiaomi_vayu
-            chmod +x build.sh && ./build.sh
+            chmod +x build.sh && ./buildx.sh
        - name: Uploading process
          run: |
             cd work/kernel_xiaomi_vayu/AnyKernel3
