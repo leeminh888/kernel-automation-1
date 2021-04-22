@@ -46,7 +46,7 @@ jobs:
          run: |
             sudo -E apt-get -qq update
             sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc libssl-dev  rsync flex bison ccache 
-            chmod +x build.sh && ./buildx.sh
+            chmod +x buildx.sh && ./buildx.sh
        - name: Uploading process
          run: |
             cd work/kernel_xiaomi_vayu/AnyKernel3
