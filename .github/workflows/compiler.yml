@@ -16,8 +16,8 @@ on:
     
 
 env:
-  KERNEL_SOURCE: https://github.com/AndroidBlobs/kernel_xiaomi_vayu
-  BRANCH: release-LA.UM.9.1.r1-07000-SMxxx0.0
+  KERNEL_SOURCE: https://github.com/leeminh888/kernel_xiaomi_vayu
+  BRANCH: r
   DEFCONFIG: vayu_user_defconfig
   TZ: Asia/Kolkata
   MIR: wet
@@ -46,25 +46,15 @@ jobs:
          run: |
             sudo -E apt-get -qq update
             sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc libssl-dev  rsync flex bison ccache 
-            mkdir ~/bin && PATH=~/bin:$PATH && curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo
        - name: Cloning repo
          run: |
             git clone --recurse-submodules $KERNEL_SOURCE --depth=1 --branch=$BRANCH work
        - name: Compiling Kernel
          run: |
-            cd work
-            git clone $TOOLCHAIN --depth=1
-            git clone $TOOLCHAIN2 --depth=1 
-            CROSS_COMPILE="pwd/gcc-arm64/bin/aarch64-elf-"
-            CROSS_COMPILE_ARM32="pwd/gcc-arm/bin/arm-linux-gnueabi"
-            export CROSS_COMPILE
-            export ARCH=$ARCH
-            export SUBARCH=$SUBARCH
-            mkdir out
-            make O=out $DEFCONFIG
-            make O=out -j8
+            cd /home/runner/work/kernel-automation-1/kernel-automation-1/kernel_xiaomi_vayu
+            chmod +x build.sh && ./build.sh
        - name: Uploading process
          run: |
-            cd work/arch/arm64/boot
+            cd /home/runner/work/kernel-automation-1/kernel-automation-1/kernel_xiaomi_vayu/AnyKernel3
             curl -sL https://git.io/file-transfer | sh
-            ./transfer $MIR Image.gz-dtb
+            ./transfer *.zip
